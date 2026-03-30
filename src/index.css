@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 270 70% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 270 30% 15%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 270 50% 25%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 270 70% 55%;
+
+    --radius: 0.75rem;
+
+    --purple-glow: 270 80% 65%;
+    --surface-light: 0 0% 95%;
+    --surface-light-foreground: 0 0% 8%;
+
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 270 70% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 270 50% 20%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 270 70% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px hsl(270 80% 65% / 0.5), 0 0 40px hsl(270 80% 65% / 0.3);
+  }
+
+  .box-glow {
+    box-shadow: 0 0 20px hsl(270 80% 65% / 0.3), 0 0 40px hsl(270 80% 65% / 0.15);
+  }
+
+  .box-glow-sm {
+    box-shadow: 0 0 10px hsl(270 80% 65% / 0.2), 0 0 20px hsl(270 80% 65% / 0.1);
+  }
+
+  .gradient-purple {
+    background: linear-gradient(135deg, hsl(270 70% 55%), hsl(270 80% 65%));
+  }
+
+  .gradient-overlay {
+    background: linear-gradient(to top, hsl(0 0% 4%) 0%, transparent 100%);
+  }
+
+  .bg-surface-light {
+    background-color: hsl(0 0% 95%);
+    color: hsl(0 0% 8%);
+  }
+
+  /* Tilt-enabled elements get GPU-compositing hint */
+  .tilt-card {
+    will-change: transform;
+    transform-style: preserve-3d;
+  }
+}
+
+/* ─── Ambient animations ──────────────────────────────────────────── */
+
+/* Slow glow "breathing" — used on overlay layers for atmospheric depth */
+@keyframes glow-breathe {
+  0%, 100% { opacity: 0.55; }
+  50%       { opacity: 0.85; }
+}
+
+/* Ambient gradient shimmer — used behind hero overlays */
+@keyframes hero-shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Button shine sweep on hover */
+@keyframes btn-shine {
+  from { transform: translateX(-100%) skewX(-15deg); }
+  to   { transform: translateX(250%) skewX(-15deg); }
+}
+
+.hero-ambient-glow {
+  animation: glow-breathe 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ─── Nav link underline ─────────────────────────────────────────── */
+.nav-link-underline {
+  position: relative;
+}
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: hsl(var(--primary));
+  transition: width 0.28s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.nav-link-underline:hover::after,
+.nav-link-underline.active::after {
+  width: 100%;
+}
+
+/* ─── Premium CTA button shine ───────────────────────────────────── */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 28%;
+  height: 200%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.16) 50%,
+    transparent 100%
+  );
+  transform: skewX(-15deg);
+  transition: left 0s;
+  pointer-events: none;
+}
+.btn-shine:hover::after {
+  left: 150%;
+  transition: left 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ─── Hero Play Button ────────────────────────────────────────────── */
+.hero-play-btn {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.hero-play-btn__circle {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.42);
+  border: 2px solid rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(6px);
+  transition: transform 0.28s ease, background 0.28s ease,
+    box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.hero-play-btn__icon {
+  margin-left: 4px; /* optical centering for triangle */
+  transition: transform 0.28s ease;
+}
+
+.hero-play-btn__label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.28s ease;
+  pointer-events: none;
+}
+
+.hero-play-btn:hover .hero-play-btn__circle,
+.hero-play-btn:focus-visible .hero-play-btn__circle {
+  transform: scale(1.12);
+  background: rgba(147, 51, 234, 0.52);
+  border-color: hsl(270 80% 70%);
+  box-shadow: 0 0 32px hsl(270 80% 65% / 0.65),
+    0 0 64px hsl(270 80% 65% / 0.3);
+}
+
+.hero-play-btn:hover .hero-play-btn__icon,
+.hero-play-btn:focus-visible .hero-play-btn__icon {
+  transform: scale(1.08);
+}
+
+.hero-play-btn:hover .hero-play-btn__label,
+.hero-play-btn:focus-visible .hero-play-btn__label {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Larger circle variant used in J5 Work card */
+.hero-play-btn__circle--lg {
+  width: 96px;
+  height: 96px;
+}
+
+/* ─── J5 Work Card ───────────────────────────────────────────────── */
+.j5-work-card {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  cursor: pointer;
+  box-shadow: 0 0 10px hsl(270 80% 65% / 0.2), 0 0 20px hsl(270 80% 65% / 0.1);
+  /* transform is intentionally omitted — controlled by useTilt for 3D effect */
+  transition: box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.j5-work-card:hover {
+  box-shadow: 0 0 28px hsl(270 80% 65% / 0.45), 0 0 56px hsl(270 80% 65% / 0.22);
+}
+
+.j5-work-card:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 3px;
+}
+
+/* ─── Video Modal ─────────────────────────────────────────────────── */
+.video-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.97);
+  animation: videoFadeIn 0.3s ease both;
+}
+
+.video-modal-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: videoScaleIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.video-modal-video {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  outline: none;
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 10;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: background 0.22s ease, transform 0.22s ease;
+}
+
+.video-modal-close:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: scale(1.1);
+}
+
+@keyframes videoFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes videoScaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
