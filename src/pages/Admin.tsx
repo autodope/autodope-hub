@@ -4,12 +4,13 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { LogOut, Trash2, RefreshCw, Mail, User, Calendar } from "lucide-react";
+import { LogOut, Trash2, RefreshCw, Mail, User, Calendar, Phone } from "lucide-react";
 
 interface BookingRequest {
   id: string;
   name: string;
   email: string;
+  phone: string | null;
   service: string;
   member: string;
   message: string | null;
@@ -144,6 +145,17 @@ const Admin = () => {
                         {booking.email}
                       </a>
                     </div>
+                    {booking.phone && (
+                      <div className="flex items-center gap-2">
+                        <Phone className="w-4 h-4 text-muted-foreground" />
+                        <a
+                          href={`tel:${booking.phone}`}
+                          className="text-sm text-primary hover:underline"
+                        >
+                          {booking.phone}
+                        </a>
+                      </div>
+                    )}
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">

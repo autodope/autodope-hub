@@ -29,6 +29,7 @@ const BookingDialog = ({ children, defaultMember }: BookingDialogProps) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     service: "",
     member: defaultMember || "",
     message: "",
@@ -43,6 +44,7 @@ const BookingDialog = ({ children, defaultMember }: BookingDialogProps) => {
       const { error } = await supabase.from("booking_requests").insert({
         name: formData.name.trim(),
         email: formData.email.trim(),
+        phone: formData.phone.trim() || null,
         service: formData.service,
         member: formData.member,
         message: formData.message.trim() || null,
@@ -50,9 +52,9 @@ const BookingDialog = ({ children, defaultMember }: BookingDialogProps) => {
       if (error) throw error;
       toast.success("Booking request sent! We'll get back to you soon.");
       setOpen(false);
-      setFormData({ name: "", email: "", service: "", member: defaultMember || "", message: "" });
+      setFormData({ name: "", email: "", phone: "", service: "", member: defaultMember || "", message: "" });
     } catch {
-      toast.error("Something went wrong. Please try again or DM us on Instagram.");
+      toast.error("Something went wrong. Please try again or email us at autodopeent@gmail.com");
     } finally {
       setLoading(false);
     }
@@ -81,6 +83,13 @@ const BookingDialog = ({ children, defaultMember }: BookingDialogProps) => {
             required
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            className="bg-muted border-border text-foreground placeholder:text-muted-foreground"
+          />
+          <Input
+            type="tel"
+            placeholder="Phone Number"
+            value={formData.phone}
+            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             className="bg-muted border-border text-foreground placeholder:text-muted-foreground"
           />
           <Select

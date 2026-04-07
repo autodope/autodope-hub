@@ -2,7 +2,7 @@ import { Instagram, Mail } from "lucide-react";
 
 const socials = [
   { icon: Instagram, href: "https://www.instagram.com/autodope.ent?igsh=M2FhcTAwbnZ4NHIz&utm_source=qr", label: "Instagram" },
-  { icon: Mail, href: "mailto:book@autodope.com", label: "Email" },
+  { icon: Mail, href: "mailto:autodopeent@gmail.com", label: "Email" },
 ];
 
 const Footer = () => (
