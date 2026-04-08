@@ -79,7 +79,7 @@ const PhotoSection = () => (
         className="absolute bottom-12 left-6 md:left-16 lg:left-24"
       >
         <p className="text-primary text-sm tracking-[0.3em] uppercase mb-2 font-medium">
-          Photographer
+          Photographer / Videographer
         </p>
         <h2 className="font-display text-6xl md:text-8xl lg:text-9xl tracking-wider text-surface-light-foreground leading-none">
           Suave<span className="text-primary">.sts</span>

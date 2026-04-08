@@ -46,7 +46,7 @@ const VideoSection = () => {
           className="absolute bottom-12 left-6 md:left-16 lg:left-24"
         >
           <p className="text-primary text-sm tracking-[0.3em] uppercase mb-2 font-medium">
-            Videographer / Editor
+            Editor / Engineer
           </p>
           <h2 className="font-display text-6xl md:text-8xl lg:text-9xl tracking-wider text-foreground text-glow leading-none">
             J<span className="text-primary">5</span>

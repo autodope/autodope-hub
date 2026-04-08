@@ -20,14 +20,14 @@ const teamMembers = [
   },
   {
     name: "Suave.sts",
-    role: "Photographer",
+    role: "Photographer / Videographer",
     description: "Capturing moments with a clean, artistic eye and timeless visual storytelling.",
     image: suaveSts,
     hash: "photo",
   },
   {
     name: "J5",
-    role: "Videographer / Editor",
+    role: "Editor / Engineer",
     description: "Cinematic visuals and sharp edits that bring every story to life on screen.",
     image: j5,
     hash: "video",
